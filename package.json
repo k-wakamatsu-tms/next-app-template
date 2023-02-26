@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint --dir src",
     "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,css,scss,md,json}'"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,css,scss,md,json}'",
+    "export": "next build && next export",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@types/node": "18.14.1",
@@ -22,11 +25,33 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "babel-loader": "^8.3.0",
+    "css-loader": "^6.7.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-storybook": "^0.6.11",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "sass": "^1.58.3",
+    "sass-loader": "^13.2.0",
+    "storybook-addon-next-router": "^4.0.2",
+    "style-loader": "^3.3.1",
+    "stylelint": "^15.2.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-recess-order": "^4.0.0",
+    "stylelint-config-recommended-scss": "^9.0.1",
+    "stylelint-prettier": "^3.0.0",
+    "stylelint-scss": "^4.4.0"
   }
 }
