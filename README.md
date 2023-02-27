@@ -1,38 +1,141 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Next.js 開発のテンプレート
 
-First, run the development server:
+Next.js の開発はこのテンプレートをベースに行ってください。
 
-```bash
-npm run dev
+## 環境
+
+`package.json` を参照ください。
+
+## 使用しているパッケージ
+
+### [`husky`](https://typicode.github.io/husky/#/)
+
+`husky` は、git でコミットする直前に登録したコマンドを実行してくれるツールです。コミット前に Prettier と ESLint を走らせるようにしています。
+（カスタマイズするとプッシュ前にコマンドは走らせることもできる）
+
+あわせて [`lint-staged`](https://github.com/okonet/lint-staged) も使用していて、こちらは stage に上がっているファイルに対して Lint をかけてくれるツールです。
+
+# テンプレートの使い方
+
+テンプレートは以下の手順で使用してください。
+
+## 1. `create-next-app` する
+
+`create-next-app` の `--example` オプションを使ってテンプレートからプロジェクトを始めることができます。
+以下のコマンドの `your-app-name` に自分の作りたいプロジェクト名を入れてコマンドを実行してください。
+（このリポジトリを fork して開始しても大丈夫です）
+
+```shell
+npx create-next-app your-app-name --example https://github.com/k-wakamatsu-tms/next-app-template
 # or
-yarn dev
-# or
-pnpm dev
+yarn create next-app your-app-name --example https://github.com/k-wakamatsu-tms/next-app-template
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. README.md を書き換える
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+プロジェクトの内容にあわせて、`README.md`を書き換えます。
+1 番下に `README.md` の参考を載せています。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 3. プッシュする
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`README.md`を書き換えたら、プロジェクトリポジトリにプッシュします。
+あらかじめからのリポジトリを作成しておきます。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```shell
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin <リポジトリのURL>
+git push -u origin main
+```
 
-## Learn More
+# ディレクトリ構成について
 
-To learn more about Next.js, take a look at the following resources:
+今回は、すべてのファイルを `src` に入れています。
+コンポーネントのディレクトリは機能ベースで切る方針をとっています。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```js
+.
+├── .next
+├── public // 画像ファイルを格納する
+├── src
+│   ├── components // コンポーネントは機能ベースでディレクトリを切る
+│   │   ├── common // 複数の機能にまたがって使用するコンポーネント
+│   │   │   ├── parts // さらにコンポーネントの中で使い回せるものはpartsに切り出す
+│   │   │   │   ├── Button.tsx
+│   │   │   │   └── ...
+│   │   │   ├── Layout.tsx
+│   │   │   ├── Header.tsx
+│   │   │   └── ...
+│   │   ├── form // 例: フォームの機能で使用するコンポーネント
+│   │   └── ...
+│   ├── hooks // カスタムフックを配置する
+│   ├── lib // APIを叩く処理やClassでの型定義ファイルを配置する
+│   ├── pages // ページテンプレートを配置する
+│   │   ├── api
+│   │   │   └──hello.ts //デフォルトのやつ
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   └── index.tsx
+│   ├── stories // storybookのストーリーファイルを配置する
+│   └── styles
+...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### `README.md` の参考
 
-## Deploy on Vercel
+````md
+# プロジェクトの概要
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+このプロジェクトは、~です。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 使用しているパッケージ
+
+### [`tailwindcss`](https://tailwindcss.com/)
+
+プロジェクトのスタイリングは Tailwind CSS を使用しています。`postcss` と `autoprefixer` も一緒に使用しています。
+
+### [`next-head-seo`](https://github.com/catnose99/next-head-seo)
+
+catnose さんが作成した SEO カスタマイズ系の軽量パッケージです。`Layout` コンポーネントで使用しています。
+
+# 開発に参加するまでの流れ
+
+以下の手順を踏んで開発に参加しましょう。
+
+## 1. `git clone`
+
+以下のコマンドを実行してクローンします。
+
+```shell
+git clone <リポジトリの URL>
+```
+
+## 2. `npm install`
+
+`npm install`を行います。`npm`のバージョンは Volta で固定していますが、Volta を使っていない人は、`npm -v`で 8 系かどうかを確かめます。
+
+```shell
+#npmのバージョンを確認（8系でない場合は、8系をインストール）
+npm -v
+
+#パッケージをインストール
+npm install
+```
+
+## 3. `npm run dev`
+
+`npm run dev`でローカルサーバーを立ち上げます。
+
+```shell
+npm run dev
+```
+````
+
+## 参考
+
+[Next.js 12 × TypeScript × Tailwind CSS のテンプレートを作成する](https://zenn.dev/taichifukumoto/articles/setup-next-12-typescript-tailwind-tamplate)
+
+[【CSF3.0 対応】Next.js + CSS Modules（Sass）に Storybook を導入し、諸々のセットアップを済まそう](https://zenn.dev/toono_f/articles/3aa990971975cb)
